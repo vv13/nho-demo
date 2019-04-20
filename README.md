@@ -1,5 +1,7 @@
 # nho-demo
 
+[![Build Status](https://travis-ci.com/vv13/nho-demo.svg?branch=master)](https://travis-ci.com/vv13/nho-demo)
+
 ## Project setup
 ```
 yarn install
