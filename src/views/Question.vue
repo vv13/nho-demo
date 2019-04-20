@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import request from '../utils/request';
+
 export default {
   data() {
     return {
@@ -52,8 +54,35 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-      console.log(this.$data.form.valueOf());
+    async onSubmit() {
+      var {
+        form: { title, options, score },
+      } = this.$data;
+
+      const list = options.map(({ label, text }) => ({
+        order: label,
+        contend: text,
+      }));
+
+      try {
+        await request.post('/question/radios', {
+          head: title,
+          point: score,
+          options: list,
+          answer: list[options.findIndex(({ correct }) => correct)],
+        });
+
+        this.$notify({
+          title: '成功',
+          message: '题目提交成功',
+          type: 'success',
+        });
+      } catch (error) {
+        this.$notify.error({
+          title: '错误',
+          message: error.message,
+        });
+      }
     },
     onCancel() {
       this.$router.replace({ name: 'main' });
