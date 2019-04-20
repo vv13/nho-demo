@@ -5,6 +5,7 @@
         <img src="@/assets/tw-logo-white.png" alt="" />
         <p>| 思沃校园</p>
       </div>
+      <img class="header__avatar" src="../assets/default_avatar.jpeg" alt="" />
     </div>
   </header>
 </template>
@@ -27,6 +28,7 @@
     will-change: transform;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
   .header__logo {
     display: flex;
@@ -40,6 +42,12 @@
       color: #fff;
       font-weight: bold;
     }
+  }
+  .header__avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    cursor: pointer;
   }
 }
 </style>

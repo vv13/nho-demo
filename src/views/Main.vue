@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="teacher-initial">
-      <h2>欢迎！x老师</h2>
+      <h2>欢迎！{{ username }}老师</h2>
       <p>开始创建第一个题目吧 ~</p>
       <el-button icon="el-icon-plus" type="primary" @click="handleCreate"
         >创建</el-button
@@ -10,13 +10,23 @@
   </div>
 </template>
 <script>
+import { TOKEN_USERNAME } from '../config';
+
 export default {
+  data() {
+    return {
+      username: '',
+    };
+  },
   methods: {
     handleCreate() {
       this.$router.push({
         name: 'question',
       });
     },
+  },
+  created() {
+    this.username = localStorage.getItem(TOKEN_USERNAME);
   },
 };
 </script>
