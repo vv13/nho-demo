@@ -26,6 +26,10 @@
         <el-option value="5"></el-option>
       </el-select>
     </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="onSubmit">立即创建</el-button>
+      <el-button @click="onCancel">取消</el-button>
+    </el-form-item>
   </el-form>
 </template>
 
@@ -49,7 +53,10 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log('submit!');
+      console.log(this.$data.form.valueOf());
+    },
+    onCancel() {
+      this.$router.replace({ name: 'main' });
     },
   },
 };
