@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { TOKEN_USERNAME } from '../config';
 import request from '../utils/request';
 
 export default {
@@ -46,7 +47,8 @@ export default {
   methods: {
     async handleLogin() {
       await this.$refs.formRef.validate();
-      await request.post('/api/login', this.form);
+      const data = await request.post('/api/login', this.form);
+      localStorage.setItem(TOKEN_USERNAME, data.name);
       this.$router.push({ name: 'main' });
     },
   },
