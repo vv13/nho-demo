@@ -13,10 +13,14 @@
           <div class="login__logotxt">学院</div>
         </div>
         <el-form-item label="账号" prop="email">
-          <el-input v-model="form.email"></el-input>
+          <el-input placeholder="请输入账号" v-model="form.email"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input v-model="form.password" show-password></el-input>
+          <el-input
+            placeholder="请输入密码"
+            v-model="form.password"
+            show-password
+          ></el-input>
         </el-form-item>
         <el-button type="primary" @click="handleLogin" class="login__btn"
           >登陆</el-button
@@ -39,17 +43,25 @@ export default {
         password: '',
       },
       formRules: {
-        email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        email: [{ required: true, message: '请输入您的账号', trigger: 'blur' }],
+        password: [
+          { required: true, message: '请输入您的密码', trigger: 'blur' },
+        ],
       },
     };
   },
   methods: {
     async handleLogin() {
       await this.$refs.formRef.validate();
-      const data = await request.post('/api/login', this.form);
-      localStorage.setItem(TOKEN_USERNAME, data.name);
-      this.$router.push({ name: 'main' });
+      try {
+        const data = await request.post('/api/login', this.form);
+        localStorage.setItem(TOKEN_USERNAME, data.name);
+        this.$router.push({ name: 'main' });
+      } catch (e) {
+        if (e.response.status === 409) {
+          this.$message.error('您输入的账号或密码错误');
+        }
+      }
     },
   },
 };

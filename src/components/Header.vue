@@ -5,10 +5,35 @@
         <img src="@/assets/tw-logo-white.png" alt="" />
         <p>| 思沃校园</p>
       </div>
-      <img class="header__avatar" src="../assets/default_avatar.jpeg" alt="" />
+      <el-dropdown>
+        <span class="el-dropdown-link">
+          <img
+            class="header__avatar"
+            src="../assets/default_avatar.jpeg"
+            alt=""
+          />
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item @click.native="handleLogout">退出</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
   </header>
 </template>
+<script>
+import { TOKEN_USERNAME } from '../config';
+import request from '../utils/request';
+
+export default {
+  methods: {
+    async handleLogout() {
+      await request.post('/api/logout', this.form);
+      localStorage.removeItem(TOKEN_USERNAME);
+      this.$router.replace({ name: 'login' });
+    },
+  },
+};
+</script>
 
 <style lang="less">
 .header {
