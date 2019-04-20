@@ -1,1 +1,1 @@
-export const SERVER_API = 'http://127.0.0.1';
+export const SERVER_API = 'http://10.206.20.88:8080';

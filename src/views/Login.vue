@@ -1,16 +1,22 @@
 <template>
   <div class="login">
     <div class="login__form">
-      <el-form label-position="left" label-width="80px" :model="form">
+      <el-form
+        label-position="left"
+        label-width="80px"
+        :model="form"
+        :rules="formRules"
+        ref="formRef"
+      >
         <div class="login__header">
           <img class="login__logo" src="../assets/tw-logo-black.png" alt="" />
           <div class="login__logotxt">学院</div>
         </div>
-        <el-form-item label="账号">
+        <el-form-item label="账号" prop="email">
           <el-input v-model="form.email"></el-input>
         </el-form-item>
-        <el-form-item label="密码">
-          <el-input v-model="form.password"></el-input>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="form.password" show-password></el-input>
         </el-form-item>
         <el-button type="primary" @click="handleLogin" class="login__btn"
           >登陆</el-button
@@ -21,6 +27,8 @@
 </template>
 
 <script>
+import request from '../utils/request';
+
 export default {
   name: 'home',
   data() {
@@ -29,10 +37,16 @@ export default {
         email: '',
         password: '',
       },
+      formRules: {
+        email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+      },
     };
   },
   methods: {
-    handleLogin() {
+    async handleLogin() {
+      await this.$refs.formRef.validate();
+      await request.post('/api/login', this.form);
       this.$router.push({ name: 'main' });
     },
   },

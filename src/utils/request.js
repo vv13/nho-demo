@@ -7,4 +7,6 @@ const instance = axios.create({
   headers: { 'Content-type': 'application/json' },
 });
 
-instance.interceptors.response(res => res.data());
+instance.interceptors.response.use(res => res.data);
+
+export default instance;
