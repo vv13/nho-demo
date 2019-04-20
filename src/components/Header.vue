@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header__content">
-      <div class="header__logo">
+      <div class="header__logo" @click="handleClickLogo">
         <img src="@/assets/tw-logo-white.png" alt="" />
         <p>| 思沃校园</p>
       </div>
@@ -31,6 +31,9 @@ export default {
       localStorage.removeItem(TOKEN_USERNAME);
       this.$router.replace({ name: 'login' });
     },
+    handleClickLogo() {
+      this.$router.push({ name: 'main' });
+    },
   },
 };
 </script>
@@ -56,6 +59,7 @@ export default {
     justify-content: space-between;
   }
   .header__logo {
+    cursor: pointer;
     display: flex;
     align-items: center;
     position: relative;

@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import { TOKEN_USERNAME } from '../config';
 import request from '../utils/request';
 
@@ -51,13 +52,16 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['changeLoading']),
     async handleLogin() {
       await this.$refs.formRef.validate();
       try {
+        this.changeLoading(true);
         const data = await request.post('/api/login', this.form);
         localStorage.setItem(TOKEN_USERNAME, data.name);
         this.$router.push({ name: 'main' });
       } catch (e) {
+        this.changeLoading(false);
         if (e.response.status === 409) {
           this.$message.error('您输入的账号或密码错误');
         }

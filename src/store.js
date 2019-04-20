@@ -4,7 +4,17 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
+  state: {
+    loading: false,
+  },
+  mutations: {
+    changeLoading(state, status) {
+      state.loading = status;
+    },
+  },
+  actions: {
+    changeLoading({ commit }, isLoading) {
+      commit('changeLoading', isLoading);
+    },
+  },
 });

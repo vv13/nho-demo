@@ -10,6 +10,7 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex';
 import { TOKEN_USERNAME } from '../config';
 
 export default {
@@ -19,6 +20,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['changeLoading']),
     handleCreate() {
       this.$router.push({
         name: 'question',
@@ -27,6 +29,11 @@ export default {
   },
   created() {
     this.username = localStorage.getItem(TOKEN_USERNAME);
+  },
+  mounted() {
+    setTimeout(() => {
+      this.changeLoading(false);
+    }, 500);
   },
 };
 </script>
