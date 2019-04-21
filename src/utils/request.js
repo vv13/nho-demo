@@ -13,8 +13,10 @@ instance.interceptors.response.use(
     const errData = err.response.data;
     // auth check
     if (errData && errData.code === 2) {
+      debugger;
       location.replace('/');
     }
+    throw err;
   }
 );
 
