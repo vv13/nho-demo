@@ -7,6 +7,14 @@ const instance = axios.create({
   headers: { 'Content-type': 'application/json' },
 });
 
-instance.interceptors.response.use(res => res.data);
+instance.interceptors.response.use(
+  res => res.data,
+  err => {
+    const errData = err.response.data;
+    if (errData && errData.code === 2) {
+      location.replace('/');
+    }
+  }
+);
 
 export default instance;
