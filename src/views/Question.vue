@@ -1,10 +1,11 @@
 <template>
   <el-form ref="form" :model="form" label-width="80px">
-    <el-form-item label="题目">
+    <el-form-item label="题目" required>
       <el-input v-model="form.title" size="small"></el-input>
     </el-form-item>
     <el-form-item
       :label="item.label"
+      required
       v-for="item in form.options"
       :key="item.index"
     >
@@ -55,6 +56,8 @@ export default {
   },
   methods: {
     async onSubmit() {
+      if (!(await this.$refs.form.validate())) return;
+
       var {
         form: { title, options, score },
       } = this.$data;
@@ -65,7 +68,7 @@ export default {
       }));
 
       try {
-        await request.post('/question/radios', {
+        await request.post('/api/question/radios', {
           head: title,
           point: score,
           options: list,
