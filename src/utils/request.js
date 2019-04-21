@@ -11,6 +11,7 @@ instance.interceptors.response.use(
   res => res.data,
   err => {
     const errData = err.response.data;
+    // auth check
     if (errData && errData.code === 2) {
       location.replace('/');
     }
