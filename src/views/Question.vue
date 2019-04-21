@@ -2,12 +2,12 @@
   <el-card class="question-card">
     <h2>创建题目</h2>
     <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item label="题目" required>
+      <el-form-item label="题目" prop="title">
         <el-input v-model="form.title" size="small"></el-input>
       </el-form-item>
       <el-form-item
         :label="item.label"
-        required
+        :prop="item.label"
         v-for="item in form.options"
         :key="item.index"
       >
@@ -55,6 +55,9 @@ export default {
           })),
         score: 1,
       },
+      rules: {
+        title: [{ required: true, message: '请输入题目', trigger: 'blur' }],
+      },
     };
   },
   methods: {
@@ -83,6 +86,8 @@ export default {
           message: '题目提交成功',
           type: 'success',
         });
+
+        this.onCancel();
       } catch (error) {
         this.$notify.error({
           title: '错误',
