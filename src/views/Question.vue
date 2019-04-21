@@ -1,7 +1,7 @@
 <template>
   <el-card class="question-card">
     <h2>创建题目</h2>
-    <el-form ref="form" :model="form" label-width="80px">
+    <el-form ref="form" :model="form" :rules="rules" label-width="80px">
       <el-form-item label="题目" prop="title">
         <el-input v-model="form.title" size="small"></el-input>
       </el-form-item>
@@ -37,6 +37,16 @@
   </el-card>
 </template>
 
+<style lang="less">
+.question-card {
+  width: 600px;
+  margin: auto;
+}
+.question__footer {
+  float: right;
+}
+</style>
+
 <script>
 import request from '../utils/request';
 
@@ -57,6 +67,10 @@ export default {
       },
       rules: {
         title: [{ required: true, message: '请输入题目', trigger: 'blur' }],
+        A: [{ required: true, message: '请输入选项答案', trigger: 'blur' }],
+        B: [{ required: true, message: '请输入选项答案', trigger: 'blur' }],
+        C: [{ required: true, message: '请输入选项答案', trigger: 'blur' }],
+        D: [{ required: true, message: '请输入选项答案', trigger: 'blur' }],
       },
     };
   },
@@ -101,13 +115,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less">
-.question-card {
-  width: 600px;
-  margin: auto;
-}
-.question__footer {
-  float: right;
-}
-</style>
